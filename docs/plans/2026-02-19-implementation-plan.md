@@ -1432,20 +1432,20 @@ git commit -m "chore: Phase 0 + Phase 1 complete — core chapters and interacti
 
 | Task | Component | Status |
 |------|-----------|--------|
-| 1 | Vite scaffold | ⬜ Phase 0 |
-| 2 | Design system CSS | ⬜ Phase 0 |
-| 3 | Shared component migration | ⬜ Phase 0 |
-| 4 | PixelArtScene | ⬜ Phase 0 |
-| 5 | CRTOverlay | ⬜ Phase 0 |
-| 6 | StampAnimation | ⬜ Phase 0 |
-| 7 | App shell + routing | ⬜ Phase 0 |
-| 8 | Placeholder pixel art | ⬜ Phase 0 |
+| 1 | Vite scaffold | ✅ Phase 0 |
+| 2 | Design system CSS | ✅ Phase 0 |
+| 3 | Shared component migration | ✅ Phase 0 |
+| 4 | PixelArtScene | ✅ Phase 0 |
+| 5 | CRTOverlay | ✅ Phase 0 |
+| 6 | StampAnimation | ✅ Phase 0 |
+| 7 | App shell + routing | ✅ Phase 0 |
+| 8 | Placeholder pixel art | ✅ Phase 0 |
 | 9 | ~~Legal data files~~ | ✅ Pre-existing (all 6 data modules complete) |
-| 10 | ContentWarning chapter | ⬜ Phase 1 |
-| 11 | Prologue chapter | ⬜ Phase 1 |
-| 12 | HistoricalContext + StatuteJudgment | ⬜ Phase 1 |
-| 13 | TheSeventyOneDays chapter | ⬜ Phase 1 (timeline data pre-existing) |
-| 14 | CallToAction chapter | ⬜ Phase 1 |
-| 15 | Integration test + mobile | ⬜ Phase 1 |
+| 10 | ContentWarning chapter | ✅ Phase 1 |
+| 11 | Prologue chapter | ✅ Phase 1 |
+| 12 | HistoricalContext + StatuteJudgment | ✅ Phase 1 |
+| 13 | TheSeventyOneDays chapter | ✅ Phase 1 |
+| 14 | CallToAction chapter | ✅ Phase 1 |
+| 15 | Integration test + mobile | ✅ Phase 1 |
 
 **Next phases** (separate plan): Phase 2 (Ch.3 調查歷程, Ch.4 監控真相 with SurveillanceReportForm, Ch.5 未解之謎), Phase 3 (polish + deploy).
