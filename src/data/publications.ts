@@ -416,7 +416,7 @@ export const issues262263: Issue = {
       quote:
         '鄭南榕堅信在民主國家中，刊登一篇憲法草案根本不可能涉嫌叛亂，' +
         '因此拒絕這種非法傳訊……鄭南榕將不惜一切行使他的抵抗權。',
-      legalRisk: null,
+      legalRisk: undefined,
     },
     {
       title: '（編輯室分析）殺人工程',
@@ -432,7 +432,7 @@ export const issues262263: Issue = {
         '不容許任何細節因為「良心」因素而逸出控制，否則他們會失去飯碗。' +
         '甚至他們也必須說服自己：鄭南榕罪有應得。' +
         '這樣一個人性備受扭曲的極權統治體系，才真正是「臺獨人士」終身反對的對象。',
-      legalRisk: null,
+      legalRisk: undefined,
     },
   ],
 };
@@ -461,7 +461,7 @@ export const issue266: Issue = {
       quote:
         '我們深信，所有的自由裡，第一個應該爭取的是言論自由，' +
         '有了言論自由以後，才有可能保住其他的自由。',
-      legalRisk: null,
+      legalRisk: undefined,
     },
   ],
 };
@@ -499,7 +499,7 @@ export const issue267: Issue = {
         '歷經四十次停刊、百餘次查禁。十次言論官司，一次槍口對準人身……' +
         '環視臺灣的反對派刊物，能延續言論自由的香火而五年不斷者，' +
         '也只有自由時代碩果僅存而已。',
-      legalRisk: null,
+      legalRisk: undefined,
     },
     {
       title: '未來發展是難以逆料的（五周年宣言節錄）',
@@ -510,7 +510,7 @@ export const issue267: Issue = {
       quote:
         '未來發展是難以逆料的，但我們始終堅信，唯有靠人民力量的全面覺醒，' +
         '臺灣才會有公理正義降臨的一天。',
-      legalRisk: null,
+      legalRisk: undefined,
     },
   ],
 };
@@ -540,7 +540,7 @@ export const issue1: Issue = {
       isEditorial: true,
       isNylonSigned: true,
       quote: '爭取100%自由',
-      legalRisk: null,
+      legalRisk: undefined,
     },
   ],
 };
@@ -574,7 +574,7 @@ export const issue88: Issue = {
       quote:
         '我們要的是徹頭徹尾、不折不扣的自由。不論他們拔槍之後，何時開火，' +
         '我們總要周旋到底，爭取百分之百的自由。',
-      legalRisk: null,
+      legalRisk: undefined,
     },
   ],
 };
