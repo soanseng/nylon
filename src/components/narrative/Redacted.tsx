@@ -2,10 +2,21 @@ import { useState } from 'react'
 
 interface RedactedProps {
   children: React.ReactNode
+  /** When true, text stays revealed permanently after first click (no toggle back) */
+  permanent?: boolean
+  /** Callback fired when text is revealed (useful for counting reveals) */
+  onReveal?: () => void
 }
 
-export function Redacted({ children }: RedactedProps) {
+export function Redacted({ children, permanent = false, onReveal }: RedactedProps) {
   const [revealed, setRevealed] = useState(false)
+
+  const handleReveal = () => {
+    if (permanent && revealed) return
+    const next = permanent ? true : !revealed
+    setRevealed(next)
+    if (next && onReveal) onReveal()
+  }
 
   return (
     <span
@@ -18,11 +29,11 @@ export function Redacted({ children }: RedactedProps) {
           : 'redacted-bar border border-smoke/50 bg-ash text-transparent hover:border-blood-dark/60 hover:bg-smoke/80'
       }`}
       style={{ minHeight: '44px', minWidth: '44px', touchAction: 'manipulation' }}
-      onClick={() => setRevealed((prev) => !prev)}
+      onClick={handleReveal}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          setRevealed((prev) => !prev)
+          handleReveal()
         }
       }}
     >
