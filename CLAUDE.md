@@ -53,7 +53,7 @@ All content must be sourced from and attributed to one of the following categori
 
 ### Completed: Source Extraction & Data Layer (2026-02-19)
 
-All source material extraction and TypeScript data modules are **complete**. No frontend scaffold exists yet.
+All source material extraction and TypeScript data modules are **complete**.
 
 **Extracted Sources** (`docs/extracted/` — 15 markdown + 2 JSON):
 | # | File | Content |
@@ -88,15 +88,37 @@ All source material extraction and TypeScript data modules are **complete**. No 
 
 Each data file defines its own TypeScript interfaces inline (no shared `types.ts` needed). All data includes source attribution per CLAUDE.md rules.
 
+### Completed: Phase 0 + Phase 1 (2026-02-20)
+
+**Build toolchain:** Vite + React 19 + TypeScript 5.9 + Tailwind CSS 4. `npm run build` passes clean.
+
+**Components** (`src/components/`):
+- `narrative/` — ScrollReveal, Redacted, DocumentPage, SourceRef
+- `layout/` — Section, ChapterHeader, ChapterTransition, Navigation
+- `pixel-art/` — PixelArtScene (static 320x180 with `image-rendering: pixelated`)
+- `crt/` — CRTOverlay (boot/shutdown animations), StatuteJudgment (3-scenario legal quiz)
+- `interactive/` — StampAnimation (red stamp slam)
+- `timeline/` — DayCounter
+
+**Chapters** (`src/chapters/`):
+- ContentWarning — surveillance-green styling, enter button
+- Prologue (Ch.0) — pixel art desk, date fade-in, key quote
+- HistoricalContext (Ch.1) — statute display, courtroom pixel art, stamp, CRT quiz trigger
+- TheSeventyOneDays (Ch.2) — timeline events, day counter, standoff pixel art
+- CallToAction (Ch.6) — action cards grid, amber/dawn warmth
+
+**Design system** (`src/index.css`): Olive-green surveillance palette, CRT overlay styles, 5 font families.
+
 ### Not Yet Created
-- `package.json` / build toolchain (Vite, TypeScript, Tailwind)
-- Any React components (`src/components/`)
-- Any chapter pages (`src/chapters/`)
-- CSS / design system
-- Hooks, utilities
+- Ch.3 調查歷程 (Investigation)
+- Ch.4 監控真相 (Surveillance Truth) with SurveillanceReportForm
+- Ch.5 未解之謎 (Unanswered Questions)
+- PixiJS procedural scenes (`src/components/pixel/`)
+- Surveillance file viewer, redaction interactions
+- Polish, deploy
 
 ### Implementation Plan
-See `docs/plans/2026-02-19-implementation-plan.md` — Phase 0 (scaffold) + Phase 1 (core chapters).
+See `docs/plans/2026-02-19-implementation-plan.md` — Phase 0 + Phase 1 complete. Phase 2 (Ch.3-5) and Phase 3 (polish + deploy) next.
 
 ## Tech Stack
 
