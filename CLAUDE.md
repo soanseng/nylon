@@ -49,14 +49,63 @@ All content must be sourced from and attributed to one of the following categori
 - When quoting 鄭南榕's words, use exact quotes with source attribution
 - Surveillance file excerpts must note the originating agency (國安局/調查局/警總)
 
+## Project Status
+
+### Completed: Source Extraction & Data Layer (2026-02-19)
+
+All source material extraction and TypeScript data modules are **complete**. No frontend scaffold exists yet.
+
+**Extracted Sources** (`docs/extracted/` — 15 markdown + 2 JSON):
+| # | File | Content |
+|---|------|---------|
+| 01 | `01-article-2-1.md` | 國家人權記憶庫 entry on 二條一 — definition, mandatory death penalty |
+| 02 | `02-punishment-rebellion-act.md` | Full 懲治叛亂條例 text (13 articles, 1949–1991.5.22) |
+| 03 | `03-wikipedia-biography.md` | Wikipedia biography — birth to death chronology |
+| 04 | `04-archive-travel-ban.md` | Govt archive: travel ban order (1987.9.22) |
+| 05 | `05-archive-kaohsiung-speech.md` | Govt archive: Kaohsiung police surveillance report |
+| 06 | `06-archive-indictment.md` | Govt archive: Sedition indictment (Issue 254) |
+| 07 | `07-archive-case-closed.md` | Govt archive: Non-prosecution (defendant dead) |
+| 08 | `08-archive-phone-tap.md` | Govt archive: Phone tap of funeral committee |
+| 09 | `09-qinggu-surveillance-method.md` | Academic: 青谷專案 surveillance methodology |
+| 10 | `10-cheng-political-research.md` | Academic: Nylon's political philosophy |
+| 11 | `11-article-100-free-speech.md` | Academic: 刑法100條 and free speech |
+| 12 | `12-authoritarian-surveillance-ntu.md` | TJC: NTU Philosophy Dept. case |
+| 13 | `13-tjc-truth-responsibility.md` | TJC final report (22,028 victims) |
+| 14 | `14-cheng-writings.md` | Nylon's own political essays (1985–1989) |
+| 15 | `15-eleven-facets.md` | Foundation biography (2025, 35th anniversary) |
+| — | `characters.json` | 83 raw character entries → deduplicated to 74 |
+| — | `timeline.json` | 223 events (1931–1992+) with conflict flags |
+
+**TypeScript Data Layer** (`src/data/` — 6 files, ~270KB):
+| File | Lines | Key Exports |
+|------|-------|-------------|
+| `timeline.ts` | 2,525 | `TimelineEvent`, `timelineEvents` (223 events), `getEventsByCategory()`, `getEventsByDateRange()` |
+| `legal.ts` | 1,142 | `Statute`, `punishmentOfRebellionAct`, `criminalCodeArt100Pre1992`, `criminalCodeArt100Post1992`, `legalScenarios` (3 interactive), `prosecutionTimeline`, `chengProsecutionChain`, `archiveDocuments`, `statuteComparisonData` |
+| `surveillance.ts` | 860 | `SurveillanceReport`, `surveillanceRecords`, `surveillanceReportTemplates`, `surveillanceStats`, `agencyHeaders`, `surveillanceQuotes` |
+| `characters.ts` | 627 | `Character`, `characters` (74 entries), `getCharacterById()`, `getCharactersByRole()` |
+| `selfImprisonment.ts` | 470 | `SelfImprisonmentDay`, `selfImprisonmentDays`, `selfImprisonmentMeta`, `getAprilSeventhTimeline()`, `getSparseCalendar()` |
+| `publications.ts` | 730 | `Issue`, `publicationStats`, `keyIssues`, `nameChangeHistory`, `issue254`, `nylonDeclaration`, `notableQuotes` |
+
+Each data file defines its own TypeScript interfaces inline (no shared `types.ts` needed). All data includes source attribution per CLAUDE.md rules.
+
+### Not Yet Created
+- `package.json` / build toolchain (Vite, TypeScript, Tailwind)
+- Any React components (`src/components/`)
+- Any chapter pages (`src/chapters/`)
+- CSS / design system
+- Hooks, utilities
+
+### Implementation Plan
+See `docs/plans/2026-02-19-implementation-plan.md` — Phase 0 (scaffold) + Phase 1 (core chapters).
+
 ## Tech Stack
 
-- **Framework:** React 18+ with TypeScript
-- **Styling:** Tailwind CSS 4
-- **UI Components:** shadcn/ui (as needed)
+- **Framework:** React 19 with TypeScript 5.9
+- **Styling:** Tailwind CSS 4 (via `@tailwindcss/vite`)
 - **Build Tool:** Vite
 - **Deployment:** Static site (GitHub Pages or similar)
 - **Language:** Traditional Chinese (繁體中文) as primary; UI chrome in both zh-TW and en
+- **Reference project:** `/home/scipio/projects/the-lin/` — same tech stack, same design language
 
 ## Build & Dev Commands
 
@@ -66,7 +115,6 @@ npm run dev          # Start dev server
 npm run build        # Production build
 npm run preview      # Preview production build
 npm run lint         # ESLint check
-npm run type-check   # TypeScript type checking
 ```
 
 ## Architecture
@@ -74,43 +122,47 @@ npm run type-check   # TypeScript type checking
 ```
 src/
 ├── components/
-│   ├── ui/              # shadcn/ui base components
-│   ├── narrative/       # Story-telling components (scroll-driven, reveal effects)
+│   ├── narrative/       # ScrollReveal, Redacted, DocumentPage, SourceRef (from the-lin)
+│   ├── layout/          # Section, ChapterHeader, ChapterTransition, Navigation (from the-lin)
 │   ├── surveillance/    # Surveillance file viewer, redaction interactions
 │   ├── legal/           # 二條一 statute display, "paper death sentence" effects
-│   ├── timeline/        # Interactive timeline (71 days, minute-level events)
-│   ├── interactive/     # Interactive elements (file drawer, stamp reveal, burning edge)
-│   ├── pixel/           # PixiJS pixel art system (from Chen-Wen-chen project)
+│   ├── timeline/        # DayCounter, interactive timeline (71 days)
+│   ├── interactive/     # StampAnimation, file drawer, burning edge
+│   ├── pixel-art/       # PixelArtScene (Phase 0/1: static images with pixelated rendering)
+│   ├── pixel/           # PixiJS procedural scenes (Phase 2+, from ~/projects/Chen-Wen-chen/)
 │   │   ├── PixelScene.tsx    # Shared wrapper (lazy loading, scaling, reduced-motion)
 │   │   ├── PixiCanvas.tsx    # PixiJS v8 Canvas renderer
 │   │   ├── usePixiApp.ts     # React hook for PixiJS Application
 │   │   └── scenes/           # Procedural pixel art scenes (PixiJS Graphics API)
-│   ├── crt/             # CRT terminal overlay (boot/shutdown, scanlines, mini-interactions)
+│   ├── crt/             # CRTOverlay, StatuteJudgment, SurveillanceReportForm
+│   ├── ui/              # Shared UI primitives
 │   └── layout/          # Page layout, navigation, mobile menu
 ├── chapters/            # Chapter-based page components (one per narrative section)
-├── data/
-│   ├── timeline.ts      # Chronological events (1947–1989–1991–present)
-│   ├── characters.ts    # Key figures (鄭南榕, 葉菊蘭, 許世楷, 侯友宜, etc.)
-│   ├── surveillance.ts  # Structured surveillance record entries
-│   ├── legal.ts         # Legal statutes, prosecution documents
-│   ├── selfImprisonment.ts  # 71-day self-imprisonment daily log
-│   └── publications.ts  # 《自由時代》issues and key articles
+├── data/                # ✅ COMPLETE — 6 typed data modules, ~270KB
+│   ├── timeline.ts      # 223 events (1931–1992+), categories, conflict flags
+│   ├── characters.ts    # 74 characters with roles and multi-source descriptions
+│   ├── surveillance.ts  # 青谷專案 format, agency records, report templates
+│   ├── legal.ts         # Statutes, prosecution chain, 3 interactive scenarios, archive docs
+│   ├── selfImprisonment.ts  # 71-day log with minute-by-minute April 7
+│   └── publications.ts  # 《自由時代》302 issues, name changes, key articles
 ├── hooks/
-│   ├── useScrollReveal.ts    # IntersectionObserver-based reveal
+│   ├── useScrollReveal.ts    # IntersectionObserver-based reveal (from the-lin)
 │   ├── useSurveillance.ts    # Surveillance file browsing state
 │   ├── useRedaction.ts       # Redacted text reveal interaction
-│   ├── useCountdown.ts       # 71-day countdown display
-│   └── useAudio.ts           # Ambient audio (if any)
+│   └── useCountdown.ts       # 71-day countdown display
 ├── lib/
 │   ├── utils.ts         # General utilities
-│   ├── constants.ts     # Site-wide constants
-│   └── types.ts         # TypeScript type definitions
+│   └── constants.ts     # Site-wide constants
 ├── styles/
 │   └── globals.css      # Global styles, CSS custom properties, Tailwind extensions
 └── assets/
+    ├── pixel-art/       # Placeholder PNGs (320x180) for Phase 0/1
     ├── documents/       # Scanned document images (surveillance files, summons)
     ├── photos/          # Historical photographs
     └── textures/        # Paper textures, burn marks, stamp overlays
+docs/
+├── extracted/           # 15 markdown source docs + 2 JSON (characters, timeline)
+└── plans/               # Implementation plans and design decisions
 ```
 
 ## Design Philosophy

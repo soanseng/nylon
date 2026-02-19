@@ -12,6 +12,38 @@
 
 ---
 
+## Pre-existing Work (completed 2026-02-19)
+
+The following work was completed before this plan's execution:
+
+### ✅ Source Extraction Complete
+- 15 extracted markdown documents in `docs/extracted/` (government archives, academic papers, Foundation books)
+- 2 intermediate JSON files: `characters.json` (83 entries), `timeline.json` (223 events)
+- See `docs/plans/2026-02-19-source-extraction-plan.md` for full extraction log
+
+### ✅ TypeScript Data Layer Complete (`src/data/`)
+All 6 data modules are written with full type definitions, source attributions, and helper functions:
+
+| File | Exports used by chapters |
+|------|--------------------------|
+| `timeline.ts` | `timelineEvents`, `getEventsByDateRange()`, `getEventsByCategory()` |
+| `legal.ts` | `punishmentOfRebellionAct`, `legalScenarios`, `legalScenariosConclusion`, `prosecutionTimeline`, `chengProsecutionChain`, `archiveDocuments`, `statuteComparisonData` |
+| `surveillance.ts` | `surveillanceRecords`, `surveillanceReportTemplates`, `surveillanceStats`, `agencyHeaders`, `surveillanceQuotes` |
+| `characters.ts` | `characters`, `getCharacterById()`, `getCharactersByRole()`, `protagonist` |
+| `selfImprisonment.ts` | `selfImprisonmentDays`, `selfImprisonmentMeta`, `getAprilSeventhTimeline()`, `getSparseCalendar()` |
+| `publications.ts` | `publicationStats`, `keyIssues`, `issue254`, `nylonDeclaration`, `notableQuotes`, `nameChangeHistory` |
+
+**Important:** Each data file defines its own TypeScript interfaces inline. There is NO shared `src/lib/types.ts` — chapter components should import types directly from the data files.
+
+### ✅ Git Initialized
+- `.gitignore` already configured (excludes `sources/`, `node_modules/`, `dist/`, `.env`)
+- Git repo initialized with initial commit
+
+### Directory State
+The project directory is **not empty**. It contains: `CLAUDE.md`, `docs/`, `src/data/`, `.gitignore`, `.git/`, `sources/` (gitignored). Vite scaffold (Task 1) must handle the non-empty directory.
+
+---
+
 ## Phase 0: Project Initialization
 
 ### Task 1: Scaffold Vite + React + TypeScript + Tailwind project
@@ -27,7 +59,7 @@ cd /home/scipio/projects/nylon
 npm create vite@latest . -- --template react-ts
 ```
 
-If directory not empty, answer yes to overwrite (only CLAUDE.md and plan files exist, they won't be overwritten).
+Directory is NOT empty — contains CLAUDE.md, docs/, src/data/, .gitignore, sources/. Accept overwrite prompt. Existing files in src/data/ will NOT be affected (Vite scaffold only creates src/main.tsx, src/App.tsx, etc.).
 
 **Step 2: Install dependencies**
 
@@ -60,9 +92,10 @@ Expected: Build succeeds with no errors.
 
 **Step 5: Commit**
 
+Git is already initialized. Do NOT run `git init` again.
+
 ```bash
-git init
-git add package.json vite.config.ts tsconfig.json tsconfig.app.json tsconfig.node.json index.html eslint.config.js src/main.tsx src/App.tsx src/vite-env.d.ts .gitignore
+git add package.json package-lock.json vite.config.ts tsconfig.json tsconfig.app.json tsconfig.node.json index.html eslint.config.js src/main.tsx src/App.tsx src/vite-env.d.ts
 git commit -m "chore: scaffold Vite + React + TypeScript + Tailwind project"
 ```
 
@@ -666,107 +699,17 @@ git commit -m "chore: add placeholder pixel art assets (320x180)"
 
 ---
 
-### Task 9: Create data files for legal statutes
+### Task 9: ~~Create data files for legal statutes~~ ✅ ALREADY COMPLETE
 
-**Files:**
-- Create: `src/data/legal.ts`
-- Create: `src/lib/types.ts`
-
-**Step 1: Create types**
-
-```ts
-// src/lib/types.ts
-export interface LegalStatute {
-  id: string
-  name: string
-  fullName: string
-  article: string
-  originalText: string
-  explanation: string
-  penalty: string
-  source: string
-}
-
-export interface JudgmentScenario {
-  id: string
-  description: string
-  correctStatute: string
-  correctPenalty: string
-  explanation: string
-}
-
-export interface RedactedPair {
-  id: string
-  document: string
-  redactedText: string
-  revealedText: string
-  source: string
-}
-
-export interface TimelineEvent {
-  date: string
-  dateROC?: string
-  title: string
-  description: string
-  source: string
-  chapter: number
-}
-```
-
-**Step 2: Create legal data**
-
-```ts
-// src/data/legal.ts
-import type { LegalStatute, JudgmentScenario } from '../lib/types'
-
-export const statuteArticle2_1: LegalStatute = {
-  id: 'article-2-1',
-  name: '二條一',
-  fullName: '懲治叛亂條例 第二條第一項',
-  article: '第二條第一項',
-  originalText: '犯刑法第一百條第一項、第一百零一條第一項、第一百零三條第一項、第一百零四條第一項之罪者，處死刑。',
-  explanation: '法官沒有選擇，只能判你死刑。無論情節輕重，唯一刑罰就是死刑。',
-  penalty: '唯一死刑',
-  source: '[來源：國家人權記憶庫]',
-}
-
-export const judgmentScenarios: JudgmentScenario[] = [
-  {
-    id: 'case-a',
-    description: '某雜誌社總編輯於週刊第254期刊登《台灣共和國憲法草案》全文。',
-    correctStatute: '刑法§100「意圖竊據國土」→ 懲治叛亂條例§2-1',
-    correctPenalty: '唯一死刑',
-    explanation: '刊登憲法草案被視為「意圖竊據國土」，適用刑法第100條，再由懲治叛亂條例第二條第一項加重為唯一死刑。',
-  },
-  {
-    id: 'case-b',
-    description: '三名大學生組織讀書會，閱讀並討論台灣獨立相關書籍。',
-    correctStatute: '懲治叛亂條例§5「參加叛亂組織」',
-    correctPenalty: '十年以上有期徒刑',
-    explanation: '讀書會被視為「叛亂組織」，參加者依懲治叛亂條例第五條處十年以上有期徒刑。',
-  },
-  {
-    id: 'case-c',
-    description: '一名民眾在公開場合演講，主張台灣應脫離中華民國獨立建國。',
-    correctStatute: '刑法§100「意圖竊據國土」→ 懲治叛亂條例§2-1',
-    correctPenalty: '唯一死刑',
-    explanation: '公開主張台灣獨立被視為「意圖竊據國土」，同樣適用唯一死刑。',
-  },
-]
-```
-
-**Step 3: Verify build**
-
-```bash
-npm run build
-```
-
-**Step 4: Commit**
-
-```bash
-git add src/lib/types.ts src/data/legal.ts
-git commit -m "feat: add legal statute data and judgment scenarios"
-```
+> **Skip this task.** All 6 data modules in `src/data/` were created during the source extraction phase (2026-02-19). They contain far richer type definitions and data than originally planned here.
+>
+> Key differences from original plan:
+> - **No `src/lib/types.ts`** — each data file defines its own interfaces inline
+> - `legal.ts` exports: `punishmentOfRebellionAct` (not `statuteArticle2_1`), `legalScenarios` (not `judgmentScenarios`), plus `prosecutionTimeline`, `archiveDocuments`, `statuteComparisonData`
+> - `timeline.ts` exports: `timelineEvents` (223 events, not 4), with `getEventsByDateRange()` helper
+> - All data includes multi-source attribution and conflict flags
+>
+> **Downstream tasks (10–14) must use the actual export names from `src/data/`.**
 
 ---
 
@@ -939,17 +882,18 @@ This is the CRT mini-interaction for Chapter 1. Player reviews 3 scenarios, sele
 // src/components/crt/StatuteJudgment.tsx
 import { useState } from 'react'
 import { CRTOverlay } from './CRTOverlay'
-import { judgmentScenarios } from '../../data/legal'
+import { legalScenarios, legalScenariosConclusion } from '../../data/legal'
 
 interface StatuteJudgmentProps {
   open: boolean
   onClose: () => void
 }
 
+// Statute options the user can choose from (matches data in legal.ts)
 const statuteOptions = [
-  { value: 'article-2-1', label: '刑法§100 → 懲治叛亂條例§2-1（唯一死刑）' },
-  { value: 'article-5', label: '懲治叛亂條例§5（十年以上有期徒刑）' },
-  { value: 'article-7', label: '懲治叛亂條例§7（五年以下有期徒刑）' },
+  { value: 'pra-art-2-1', label: '刑法§100 → 懲治叛亂條例§2-1（唯一死刑）' },
+  { value: 'pra-art-5', label: '懲治叛亂條例§5（無期徒刑或十年以上）' },
+  { value: 'pra-art-7', label: '懲治叛亂條例§7（五年以下有期徒刑）' },
 ]
 
 export function StatuteJudgment({ open, onClose }: StatuteJudgmentProps) {
@@ -958,9 +902,9 @@ export function StatuteJudgment({ open, onClose }: StatuteJudgmentProps) {
   const [submitted, setSubmitted] = useState(false)
   const [completed, setCompleted] = useState(false)
 
-  const scenario = judgmentScenarios[currentCase]
-  const isCorrect = (selectedStatute === 'article-2-1' && scenario.correctPenalty === '唯一死刑') ||
-    (selectedStatute === 'article-5' && scenario.correctPenalty === '十年以上有期徒刑')
+  const scenario = legalScenarios[currentCase]
+  // Check if user's selection matches the scenario's applicable statute
+  const isCorrect = scenario.applicableStatuteIds.includes(selectedStatute)
 
   const handleSubmit = () => {
     if (!selectedStatute) return
@@ -993,11 +937,8 @@ export function StatuteJudgment({ open, onClose }: StatuteJudgmentProps) {
     <CRTOverlay open={open} onClose={handleClose} title="法條適用判斷系統">
       {completed ? (
         <div className="space-y-6 text-center">
-          <p className="text-[1.1rem] leading-[2] text-crt-green">
-            以上三個案例，在今天的台灣都完全合法。
-          </p>
-          <p className="text-[1.1rem] leading-[2] text-crt-amber">
-            但在1989年，每一個都足以讓你被判死刑。
+          <p className="whitespace-pre-line text-[1.1rem] leading-[2] text-crt-green">
+            {legalScenariosConclusion.zh}
           </p>
           <button
             type="button"
@@ -1062,15 +1003,15 @@ export function StatuteJudgment({ open, onClose }: StatuteJudgmentProps) {
                   {isCorrect ? '判定正確' : '判定有誤，正確答案：'}
                 </div>
                 <div className="text-crt-green">
-                  適用法條：{scenario.correctStatute}
+                  適用法條：{scenario.applicableStatuteLabel}
                 </div>
                 <div className={`mt-1 text-[1.2rem] font-bold ${
-                  scenario.correctPenalty === '唯一死刑' ? 'text-seal-red' : 'text-crt-amber'
+                  scenario.isDeathSentence ? 'text-seal-red' : 'text-crt-amber'
                 }`}>
-                  {scenario.correctPenalty}
+                  {scenario.sentence}
                 </div>
               </div>
-              <p className="text-[0.85rem] leading-[1.8] text-crt-green-dim">
+              <p className="whitespace-pre-line text-[0.85rem] leading-[1.8] text-crt-green-dim">
                 {scenario.explanation}
               </p>
               <button
@@ -1101,7 +1042,7 @@ import { DocumentPage } from '../components/narrative/DocumentPage'
 import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { StampAnimation } from '../components/interactive/StampAnimation'
 import { StatuteJudgment } from '../components/crt/StatuteJudgment'
-import { statuteArticle2_1 } from '../data/legal'
+import { punishmentOfRebellionAct, article21Quotes } from '../data/legal'
 import courtroom from '../assets/pixel-art/courtroom.png'
 
 export function HistoricalContext() {
@@ -1158,11 +1099,11 @@ export function HistoricalContext() {
             stampText="唯一死刑"
           >
             <p className="mb-6 font-document leading-[2.2] text-ink">
-              {statuteArticle2_1.originalText}
+              {punishmentOfRebellionAct.articles.find(a => a.id === '第二條第一項')?.text}
             </p>
             <div className="border-t border-ink/20 pt-4">
               <p className="text-[0.85rem] leading-[1.8] text-smoke">
-                {statuteArticle2_1.explanation}
+                {article21Quotes[0].text}
               </p>
             </div>
           </DocumentPage>
@@ -1231,52 +1172,16 @@ git commit -m "feat: implement HistoricalContext chapter with StatuteJudgment CR
 
 **Files:**
 - Modify: `src/chapters/TheSeventyOneDays.tsx`
-- Create: `src/data/timeline.ts`
+- ~~Create: `src/data/timeline.ts`~~ ✅ Already exists (223 events with `getEventsByDateRange()`)
 - Create: `src/components/timeline/DayCounter.tsx`
 
-**Step 1: Create timeline data**
+> **Note:** `src/data/timeline.ts` already contains 223 events spanning 1931–1992.
+> For this chapter, use `getEventsByDateRange('1988-12-10', '1989-04-07')` to get the
+> relevant events, or filter by `category: 'incident'` for key moments.
+> The `selfImprisonment.ts` module provides `selfImprisonmentDays` (71 days) and
+> `getAprilSeventhTimeline()` for the minute-by-minute April 7 sequence.
 
-```ts
-// src/data/timeline.ts
-import type { TimelineEvent } from '../lib/types'
-
-export const keyEvents: TimelineEvent[] = [
-  {
-    date: '1988-12-10',
-    dateROC: '民國77年12月10日',
-    title: '《自由時代》第254期刊登《台灣共和國憲法草案》',
-    description: '世界人權日，鄭南榕在雜誌刊登許世楷草擬的憲法草案全文。',
-    source: '[來源：檔案局 4.5.17-3]',
-    chapter: 2,
-  },
-  {
-    date: '1989-01-21',
-    dateROC: '民國78年1月21日',
-    title: '高檢署發出涉嫌叛亂傳票',
-    description: '臺灣高等法院檢察署以「涉嫌叛亂」為由傳喚鄭南榕。涉嫌叛亂 = 二條一 = 唯一死刑。',
-    source: '[來源：檔案局 4.5.17-1]',
-    chapter: 2,
-  },
-  {
-    date: '1989-01-27',
-    dateROC: '民國78年1月27日',
-    title: '鄭南榕宣布自囚',
-    description: '「國民黨只能抓到我的屍體，抓不到我的人。」鄭南榕自此不再離開《自由時代》雜誌社。',
-    source: '[來源：基金會]',
-    chapter: 2,
-  },
-  {
-    date: '1989-04-07',
-    dateROC: '民國78年4月7日',
-    title: '警方攻堅・鄭南榕自焚',
-    description: '警方強行進入雜誌社，鄭南榕引火自焚。高檢署撤銷起訴。',
-    source: '[來源：檔案局 4.5.17-4]',
-    chapter: 2,
-  },
-]
-```
-
-**Step 2: Create DayCounter component**
+**Step 1: Create DayCounter component** (timeline data step removed — already exists)
 
 ```tsx
 // src/components/timeline/DayCounter.tsx
@@ -1303,7 +1208,7 @@ export function DayCounter({ day, total, className = '' }: DayCounterProps) {
 }
 ```
 
-**Step 3: Implement TheSeventyOneDays chapter**
+**Step 2: Implement TheSeventyOneDays chapter**
 
 ```tsx
 // src/chapters/TheSeventyOneDays.tsx
@@ -1312,8 +1217,13 @@ import { ScrollReveal } from '../components/narrative/ScrollReveal'
 import { ChapterHeader } from '../components/layout/ChapterHeader'
 import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { DayCounter } from '../components/timeline/DayCounter'
-import { keyEvents } from '../data/timeline'
+import { getEventsByDateRange } from '../data/timeline'
+import { selfImprisonmentMeta } from '../data/selfImprisonment'
 import standoff from '../assets/pixel-art/standoff.png'
+
+// Get key events for this chapter's date range
+const keyEvents = getEventsByDateRange('1988-12-10', '1989-04-07')
+  .filter(e => e.significance === 'high')
 
 export function TheSeventyOneDays() {
   return (
@@ -1329,20 +1239,17 @@ export function TheSeventyOneDays() {
 
         {/* Key events timeline */}
         {keyEvents.map((event, index) => (
-          <ScrollReveal key={event.date} delay={index * 100}>
+          <ScrollReveal key={event.date + index} delay={index * 100}>
             <div className="border-l-2 border-surveillance-green/30 pl-6">
               <div className="mb-1 font-document text-[0.75rem] tracking-[0.15em] text-surveillance-green">
                 {event.date}
               </div>
               <h3 className="mb-2 font-heading text-[clamp(1rem,2.5vw,1.2rem)] font-bold text-paper-aged">
-                {event.title}
+                {event.event}
               </h3>
               <p className="mb-1 font-narrative text-[0.95rem] leading-[2] text-dust">
-                {event.description}
-              </p>
-              <div className="font-document text-[0.6rem] text-stone/50">
                 {event.source}
-              </div>
+              </p>
             </div>
           </ScrollReveal>
         ))}
@@ -1382,7 +1289,7 @@ npm run build
 **Step 5: Commit**
 
 ```bash
-git add src/chapters/TheSeventyOneDays.tsx src/data/timeline.ts src/components/timeline/DayCounter.tsx
+git add src/chapters/TheSeventyOneDays.tsx src/components/timeline/DayCounter.tsx
 git commit -m "feat: implement TheSeventyOneDays chapter with timeline and DayCounter"
 ```
 
@@ -1525,20 +1432,20 @@ git commit -m "chore: Phase 0 + Phase 1 complete — core chapters and interacti
 
 | Task | Component | Status |
 |------|-----------|--------|
-| 1 | Vite scaffold | Phase 0 |
-| 2 | Design system CSS | Phase 0 |
-| 3 | Shared component migration | Phase 0 |
-| 4 | PixelArtScene | Phase 0 |
-| 5 | CRTOverlay | Phase 0 |
-| 6 | StampAnimation | Phase 0 |
-| 7 | App shell + routing | Phase 0 |
-| 8 | Placeholder pixel art | Phase 0 |
-| 9 | Legal data files | Phase 0 |
-| 10 | ContentWarning chapter | Phase 1 |
-| 11 | Prologue chapter | Phase 1 |
-| 12 | HistoricalContext + StatuteJudgment | Phase 1 |
-| 13 | TheSeventyOneDays chapter | Phase 1 |
-| 14 | CallToAction chapter | Phase 1 |
-| 15 | Integration test + mobile | Phase 1 |
+| 1 | Vite scaffold | ⬜ Phase 0 |
+| 2 | Design system CSS | ⬜ Phase 0 |
+| 3 | Shared component migration | ⬜ Phase 0 |
+| 4 | PixelArtScene | ⬜ Phase 0 |
+| 5 | CRTOverlay | ⬜ Phase 0 |
+| 6 | StampAnimation | ⬜ Phase 0 |
+| 7 | App shell + routing | ⬜ Phase 0 |
+| 8 | Placeholder pixel art | ⬜ Phase 0 |
+| 9 | ~~Legal data files~~ | ✅ Pre-existing (all 6 data modules complete) |
+| 10 | ContentWarning chapter | ⬜ Phase 1 |
+| 11 | Prologue chapter | ⬜ Phase 1 |
+| 12 | HistoricalContext + StatuteJudgment | ⬜ Phase 1 |
+| 13 | TheSeventyOneDays chapter | ⬜ Phase 1 (timeline data pre-existing) |
+| 14 | CallToAction chapter | ⬜ Phase 1 |
+| 15 | Integration test + mobile | ⬜ Phase 1 |
 
 **Next phases** (separate plan): Phase 2 (Ch.3 調查歷程, Ch.4 監控真相 with SurveillanceReportForm, Ch.5 未解之謎), Phase 3 (polish + deploy).
