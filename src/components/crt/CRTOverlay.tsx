@@ -9,19 +9,29 @@ interface CRTOverlayProps {
 
 export function CRTOverlay({ open, onClose, title, children }: CRTOverlayProps) {
   const [phase, setPhase] = useState<'closed' | 'booting' | 'ready' | 'shutting-down'>('closed')
+  const [prevOpen, setPrevOpen] = useState(open)
 
-  useEffect(() => {
+  // Derive immediate phase transitions during render (avoids setState in effect)
+  if (open !== prevOpen) {
+    setPrevOpen(open)
     if (open && phase === 'closed') {
       setPhase('booting')
+    } else if (!open && (phase === 'ready' || phase === 'booting')) {
+      setPhase('shutting-down')
+    }
+  }
+
+  // Timed transitions only
+  useEffect(() => {
+    if (phase === 'booting') {
       const timer = setTimeout(() => setPhase('ready'), 600)
       return () => clearTimeout(timer)
     }
-    if (!open && phase === 'ready') {
-      setPhase('shutting-down')
+    if (phase === 'shutting-down') {
       const timer = setTimeout(() => setPhase('closed'), 400)
       return () => clearTimeout(timer)
     }
-  }, [open, phase])
+  }, [phase])
 
   // Lock body scroll when open
   useEffect(() => {
