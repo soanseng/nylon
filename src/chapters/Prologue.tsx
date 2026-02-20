@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Section } from '../components/layout/Section'
-import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { ScrollReveal } from '../components/narrative/ScrollReveal'
-import editorsDesk from '../assets/pixel-art/editors-desk.png'
+import { EditorsDeskScene } from '../components/pixel/scenes'
+import { PixelSceneFrame } from '../components/pixel/PixelSceneFrame'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 
 export function Prologue() {
   const [dateVisible, setDateVisible] = useState(false)
+  const sceneScroll = useScrollProgress()
 
   useEffect(() => {
     const timer = setTimeout(() => setDateVisible(true), 800)
@@ -16,13 +18,11 @@ export function Prologue() {
     <Section id="prologue" background="void" vignette>
       <div className="mx-auto flex max-w-[640px] flex-col items-center gap-12 text-center">
         {/* Pixel art scene */}
-        <ScrollReveal>
-          <PixelArtScene
-            src={editorsDesk}
-            alt="鄭南榕的編輯桌——打字機、稿件堆、角落的汽油桶"
-            caption="《自由時代》雜誌社總編輯室"
-          />
-        </ScrollReveal>
+        <div ref={sceneScroll.ref}>
+          <PixelSceneFrame caption="《自由時代》雜誌社總編輯室">
+            <EditorsDeskScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+          </PixelSceneFrame>
+        </div>
 
         {/* Date reveal */}
         <div
