@@ -289,7 +289,7 @@ export function CallToAction() {
                     },
                     {
                       label: '第三屆 — 鄭南榕政治主張與行動之研究',
-                      url: 'http://www.nylon.org.tw/main/docs/scholarship/003.pdf',
+                      url: 'https://www.nylon.org.tw/main/docs/scholarship/003.pdf',
                     },
                   ].map((item) => (
                     <li key={item.url} className="flex gap-2">
