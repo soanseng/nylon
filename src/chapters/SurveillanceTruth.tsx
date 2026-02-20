@@ -3,19 +3,21 @@ import { Section } from '../components/layout/Section'
 import { ScrollReveal } from '../components/narrative/ScrollReveal'
 import { ChapterHeader } from '../components/layout/ChapterHeader'
 import { DocumentPage } from '../components/narrative/DocumentPage'
-import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { Redacted } from '../components/narrative/Redacted'
 import { PageCounter } from '../components/surveillance/PageCounter'
 import { SurveillanceReportForm } from '../components/crt/SurveillanceReportForm'
+import { IntelligenceOfficeScene } from '../components/pixel/scenes'
+import { PixelSceneFrame } from '../components/pixel/PixelSceneFrame'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 import {
   surveillanceRecords,
   surveillanceStats,
   surveillanceQuotes,
 } from '../data/surveillance'
-import intelligenceOffice from '../assets/pixel-art/intelligence-office.png'
 
 export function SurveillanceTruth() {
   const [reportOpen, setReportOpen] = useState(false)
+  const sceneScroll = useScrollProgress()
   const [pagesViewed, setPagesViewed] = useState(0)
   const [counterVisible, setCounterVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -84,13 +86,11 @@ export function SurveillanceTruth() {
             </ScrollReveal>
 
             {/* Pixel art: intelligence office */}
-            <ScrollReveal>
-              <PixelArtScene
-                src={intelligenceOffice}
-                alt="情報辦公室鳥瞰——情治人員伏案撰寫報告，檔案櫃，轉盤電話，菸灰缸"
-                caption="青谷專案下的情報辦公室：每一份報告的另一端，都是一個人的日常"
-              />
-            </ScrollReveal>
+            <div ref={sceneScroll.ref}>
+              <PixelSceneFrame caption="青谷專案下的情報辦公室：每一份報告的另一端，都是一個人的日常">
+                <IntelligenceOfficeScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+              </PixelSceneFrame>
+            </div>
 
             {/* Quote */}
             <ScrollReveal>
