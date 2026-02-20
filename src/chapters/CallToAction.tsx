@@ -149,10 +149,10 @@ export function CallToAction() {
             </p>
             <div className="grid gap-2">
               {[
-                { name: '林宅血案', url: 'https://soanseng.github.io/the-lin/' },
-                { name: '陳文成事件', url: 'https://soanseng.github.io/Chen-Wen-chen/' },
-                { name: '鄭南榕事件（本站）', url: 'https://soanseng.github.io/nylon/', isCurrent: true },
-                { name: '江南案', url: 'https://soanseng.github.io/henry-liu-case/' },
+                { name: '林宅血案', url: 'https://lin.nectamen.com/' },
+                { name: '陳文成事件', url: 'https://cwc.nectamen.com/' },
+                { name: '鄭南榕事件（本站）', url: 'https://nylon.nectamen.com/', isCurrent: true },
+                { name: '江南案', url: 'https://liu.nectamen.com/' },
               ].map((site) => (
                 <a
                   key={site.name}
