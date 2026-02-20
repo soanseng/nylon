@@ -93,7 +93,7 @@ Each data file defines its own TypeScript interfaces inline (no shared `types.ts
 **Build toolchain:** Vite + React 19 + TypeScript 5.9 + Tailwind CSS 4. `npm run build` passes clean.
 
 **Components** (`src/components/`):
-- `narrative/` — ScrollReveal, Redacted, DocumentPage, SourceRef
+- `narrative/` — ScrollReveal, Redacted (with `permanent`/`onReveal` props), DocumentPage, SourceRef
 - `layout/` — Section, ChapterHeader, ChapterTransition, Navigation
 - `pixel-art/` — PixelArtScene (static 320x180 with `image-rendering: pixelated`)
 - `crt/` — CRTOverlay (boot/shutdown animations), StatuteJudgment (3-scenario legal quiz)
@@ -109,16 +109,28 @@ Each data file defines its own TypeScript interfaces inline (no shared `types.ts
 
 **Design system** (`src/index.css`): Olive-green surveillance palette, CRT overlay styles, 5 font families.
 
+### Completed: Phase 2 (2026-02-20)
+
+**New components:**
+- `legal/` — StatuteComparison (刑法100條 before/after 1992, side-by-side diff with highlighted segments)
+- `interactive/` — BurntEdgeCard (expandable card with charred paper border, scorch gradient)
+- `surveillance/` — PageCounter (floating fixed counter showing pages viewed / 5,000)
+- `crt/` — DecryptionInteraction (3-document CRT overlay: 起訴書, 限制出境令, 電話監聽紀錄 with permanent Redacted reveals)
+- `crt/` — SurveillanceReportForm (青谷專案 format: source reliability 甲/乙/丙, content accuracy 一/二/三, movement quiz)
+
+**New chapters:**
+- Investigation (Ch.3) — prosecution timeline with isKeyMoment dots, legal chain DocumentPage, StatuteComparison, DecryptionInteraction CRT trigger
+- SurveillanceTruth (Ch.4) — surveillance stats, intelligence-office pixel art, 10-document file viewer with permanent Redacted reveals + page counter, SurveillanceReportForm CRT trigger
+- UnansweredQuestions (Ch.5) — charred-office pixel art, 4 BurntEdgeCard mystery panels (police raid, evidence, surveillance files, accountability)
+
+**All 8 chapters now integrated in App.tsx** with lazy loading and correct ChapterTransition variants.
+
 ### Not Yet Created
-- Ch.3 調查歷程 (Investigation)
-- Ch.4 監控真相 (Surveillance Truth) with SurveillanceReportForm
-- Ch.5 未解之謎 (Unanswered Questions)
 - PixiJS procedural scenes (`src/components/pixel/`)
-- Surveillance file viewer, redaction interactions
-- Polish, deploy
+- Polish, accessibility audit, deploy
 
 ### Implementation Plan
-See `docs/plans/2026-02-19-implementation-plan.md` — Phase 0 + Phase 1 complete. Phase 2 (Ch.3-5) and Phase 3 (polish + deploy) next.
+See `docs/plans/2026-02-20-phase-2-plan.md` — Phase 2 complete. Phase 3 (polish + deploy) next.
 
 ## Tech Stack
 
