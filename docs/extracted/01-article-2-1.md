@@ -9,6 +9,7 @@
 | 性質 | 百科條目（背景知識 > 專有名詞，條目 ID：81） |
 | 語言 | 繁體中文 |
 | 原始檔案 | sources/wiki/國家人權記憶庫_二條一.htm |
+| 網址 | https://memory.nhrm.gov.tw/NormalNode/Detail/81?MenuNode=14 |
 
 ---
 

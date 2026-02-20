@@ -10,6 +10,7 @@
 | 性質 | 政府委員會任務總結報告 |
 | 語言 | 繁體中文 |
 | 原始檔案 | `sources/論文/探求歷史真相與責任的開端.pdf` |
+| 網址 | https://gazette2.nat.gov.tw/EG_FileManager/eguploadpub/eg028098/ch01/type7/gov01/num2/Eg.htm |
 | 頁數 | 727頁（含附錄） |
 
 ---

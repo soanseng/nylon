@@ -7,21 +7,31 @@ const actionCards = [
     title: '4月7日言論自由日',
     description: '2016年正式訂定。每年紀念鄭南榕為言論自由的犧牲。',
     icon: '📅',
+    url: 'https://zh.wikipedia.org/zh-tw/%E8%A8%80%E8%AB%96%E8%87%AA%E7%94%B1%E6%97%A5',
   },
   {
     title: '參觀鄭南榕紀念館',
     description: '鄭南榕基金會保存了雜誌社原址，開放預約參觀。',
     icon: '🏛️',
+    url: 'https://www.nylon.org.tw/main/index.php?option=com_content&view=article&id=151&Itemid=52',
   },
   {
-    title: '促轉會資源',
-    description: '線上查詢解密檔案，閱讀調查報告。',
+    title: '促轉會資料典藏',
+    description: '線上查詢促進轉型正義委員會解密檔案與調查報告。',
     icon: '📁',
+    url: 'https://www.ey.gov.tw/tjb/A699EA3CE66CF4CF',
   },
   {
-    title: '延伸閱讀',
-    description: '《自由時代》數位典藏、相關書籍與紀錄片。',
-    icon: '📚',
+    title: '國家人權博物館',
+    description: '白色恐怖景美紀念園區，保存威權時代政治迫害歷史現場。',
+    icon: '🏛️',
+    url: 'https://www.nhrm.gov.tw/w/nhrm/index',
+  },
+  {
+    title: '鄭南榕基金會 YouTube',
+    description: '影像紀錄、紀念活動、言論自由日相關影片典藏。',
+    icon: '▶',
+    url: 'https://www.youtube.com/@nylon407/videos',
   },
 ]
 
@@ -40,7 +50,12 @@ export function CallToAction() {
         <div className="grid gap-4 sm:grid-cols-2">
           {actionCards.map((card, index) => (
             <ScrollReveal key={card.title} delay={index * 100}>
-              <div className="border border-amber/20 bg-void/30 p-5 transition-colors hover:border-amber/40">
+              <a
+                href={card.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block border border-amber/20 bg-void/30 p-5 transition-colors hover:border-amber/40"
+              >
                 <div className="mb-2 text-[1.5rem]">{card.icon}</div>
                 <h3 className="mb-2 font-heading text-[1rem] font-bold text-dawn">
                   {card.title}
@@ -48,7 +63,7 @@ export function CallToAction() {
                 <p className="font-narrative text-[0.85rem] leading-[1.8] text-dust">
                   {card.description}
                 </p>
-              </div>
+              </a>
             </ScrollReveal>
           ))}
         </div>
@@ -144,6 +159,149 @@ export function CallToAction() {
                 >
                   Facebook
                 </a>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <div className="space-y-6 border-t border-amber/10 pt-10">
+            <h2 className="font-heading text-[1.1rem] font-bold text-dawn">資料來源</h2>
+            <p className="font-narrative text-[0.8rem] leading-[1.8] text-stone">
+              本站所有內容均來自以下公開文獻與政府解密檔案。
+            </p>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="mb-3 font-document text-[0.65rem] tracking-[0.2em] text-amber/60 uppercase">
+                  政府檔案 &amp; 國家機構
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    {
+                      label: '國家人權記憶庫 — 二條一（懲治叛亂條例第二條第一項）',
+                      url: 'https://memory.nhrm.gov.tw/NormalNode/Detail/81?MenuNode=14',
+                    },
+                    {
+                      label: '國家人權記憶庫 — 懲治叛亂條例',
+                      url: 'https://memory.nhrm.gov.tw/NormalNode/Detail/54?MenuNode=13',
+                    },
+                    {
+                      label: '國家發展委員會檔案管理局 — 鄭南榕案（限制出境令、起訴書、不起訴處分書、電話監聽紀錄）',
+                      url: 'https://art.archives.gov.tw/Theme.aspx?MenuID=591',
+                    },
+                    {
+                      label: '促進轉型正義委員會 — 任務總結報告第二部：探求歷史真相與責任的開端',
+                      url: 'https://gazette2.nat.gov.tw/EG_FileManager/eguploadpub/eg028098/ch01/type7/gov01/num2/Eg.htm',
+                    },
+                  ].map((item) => (
+                    <li key={item.url} className="flex gap-2">
+                      <span className="mt-[0.4em] shrink-0 font-document text-[0.6rem] text-amber/40">▸</span>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-narrative text-[0.8rem] leading-[1.8] text-dust/70 underline decoration-stone/20 underline-offset-2 transition-colors hover:text-amber/80 hover:decoration-amber/30"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="mb-3 font-document text-[0.65rem] tracking-[0.2em] text-amber/60 uppercase">
+                  促轉會委託研究
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    {
+                      label: '蘇慶軒 — 監視怎麼做？以《青谷專案》中陳菊的動態為例',
+                      url: 'https://www.ey.gov.tw/File/5B7CE33C62D860B8/17e2267f-6f00-4115-adc4-8923c27e99ca?A=C',
+                    },
+                    {
+                      label: '林易澄 — 威權體制與失控的執行者：從情治檔案重探臺大哲學系事件',
+                      url: 'https://www.ey.gov.tw/File/F095FEAD4592A5E3/d205cb11-9acf-4ea4-ac25-b07b06f6093d?A=C',
+                    },
+                  ].map((item) => (
+                    <li key={item.url} className="flex gap-2">
+                      <span className="mt-[0.4em] shrink-0 font-document text-[0.6rem] text-amber/40">▸</span>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-narrative text-[0.8rem] leading-[1.8] text-dust/70 underline decoration-stone/20 underline-offset-2 transition-colors hover:text-amber/80 hover:decoration-amber/30"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="mb-3 font-document text-[0.65rem] tracking-[0.2em] text-amber/60 uppercase">
+                  鄭南榕基金會論文徵選
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    {
+                      label: '第二屆 — 100% 言論自由之時代意義與當今所面臨之挑戰',
+                      url: 'https://www.nylon.org.tw/main/docs/scholarship/002.pdf',
+                    },
+                    {
+                      label: '第三屆 — 鄭南榕政治主張與行動之研究',
+                      url: 'http://www.nylon.org.tw/main/docs/scholarship/003.pdf',
+                    },
+                  ].map((item) => (
+                    <li key={item.url} className="flex gap-2">
+                      <span className="mt-[0.4em] shrink-0 font-document text-[0.6rem] text-amber/40">▸</span>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-narrative text-[0.8rem] leading-[1.8] text-dust/70 underline decoration-stone/20 underline-offset-2 transition-colors hover:text-amber/80 hover:decoration-amber/30"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="mb-3 font-document text-[0.65rem] tracking-[0.2em] text-amber/60 uppercase">
+                  出版書籍
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    {
+                      label: '鄭南榕基金會（編）— 認識鄭南榕：看見《自由時代》總編輯的十一個面向（逗點文創結社，2025）',
+                      url: 'https://www.commabooks.com.tw/book/2110',
+                    },
+                    {
+                      label: '鄭南榕（著）— 本刊文責一律由總編輯鄭南榕負責：《自由時代》雜誌編輯室報告文選（逗點文創結社）',
+                      url: 'https://www.commabooks.com.tw/book/833',
+                    },
+                    {
+                      label: '鄭南榕 — 維基百科，自由的百科全書',
+                      url: 'https://zh.wikipedia.org/zh-tw/%E9%84%AD%E5%8D%97%E6%A6%95',
+                    },
+                  ].map((item) => (
+                    <li key={item.url} className="flex gap-2">
+                      <span className="mt-[0.4em] shrink-0 font-document text-[0.6rem] text-amber/40">▸</span>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-narrative text-[0.8rem] leading-[1.8] text-dust/70 underline decoration-stone/20 underline-offset-2 transition-colors hover:text-amber/80 hover:decoration-amber/30"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

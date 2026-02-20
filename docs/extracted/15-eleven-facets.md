@@ -13,6 +13,7 @@
 | ISBN | 9786267606124（紙本）/ 9786267606094（電子書） |
 | 定價 | NT$250 |
 | 原始檔案 | `sources/books/認識鄭南榕：看見《自由時代》總編輯的十一個面向 (鄭南榕基金會) (z-library.sk, 1lib.sk, z-lib.sk).epub` |
+| 網址 | https://www.commabooks.com.tw/book/2110 |
 
 ## 核心內容摘要
 
