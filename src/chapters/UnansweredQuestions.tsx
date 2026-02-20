@@ -1,9 +1,10 @@
 import { Section } from '../components/layout/Section'
 import { ScrollReveal } from '../components/narrative/ScrollReveal'
 import { ChapterHeader } from '../components/layout/ChapterHeader'
-import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { BurntEdgeCard } from '../components/interactive/BurntEdgeCard'
-import charredOffice from '../assets/pixel-art/charred-office.png'
+import { CharredOfficeScene } from '../components/pixel/scenes'
+import { PixelSceneFrame } from '../components/pixel/PixelSceneFrame'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 
 const mysteries = [
   {
@@ -49,6 +50,8 @@ const mysteries = [
 ]
 
 export function UnansweredQuestions() {
+  const sceneScroll = useScrollProgress()
+
   return (
     <Section id="unanswered-questions" background="ash">
       <div className="mx-auto max-w-[640px] space-y-16">
@@ -61,13 +64,11 @@ export function UnansweredQuestions() {
         </ScrollReveal>
 
         {/* Pixel art: charred office */}
-        <ScrollReveal>
-          <PixelArtScene
-            src={charredOffice}
-            alt="燒毀的辦公室——焦黑內部，倒塌傢俱剪影，一道從破窗射入的光束；無人物"
-            caption="《自由時代》雜誌社內部：基金會保存了現場原貌至今"
-          />
-        </ScrollReveal>
+        <div ref={sceneScroll.ref}>
+          <PixelSceneFrame caption="《自由時代》雜誌社內部：基金會保存了現場原貌至今">
+            <CharredOfficeScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+          </PixelSceneFrame>
+        </div>
 
         <ScrollReveal>
           <p className="font-narrative leading-[2] text-dust">
