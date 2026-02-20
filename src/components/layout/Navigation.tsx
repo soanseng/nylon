@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 
 interface NavItem {
   id: string
@@ -15,6 +15,15 @@ export function Navigation({ items }: NavigationProps) {
   const [activeId, setActiveId] = useState<string>('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [progress, setProgress] = useState(0)
+  const firstNavRef = useRef<HTMLButtonElement>(null)
+
+  // Auto-focus first menu item when menu opens
+  useEffect(() => {
+    if (isMenuOpen) {
+      const timer = setTimeout(() => firstNavRef.current?.focus(), 200)
+      return () => clearTimeout(timer)
+    }
+  }, [isMenuOpen])
 
   // Track which section occupies the top strip of the viewport
   useEffect(() => {
@@ -154,6 +163,15 @@ export function Navigation({ items }: NavigationProps) {
         <div
           className="absolute inset-0 bg-void/80 backdrop-blur-[2px]"
           onClick={() => setIsMenuOpen(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              setIsMenuOpen(false)
+            }
+          }}
+          role="button"
+          tabIndex={-1}
+          aria-label="關閉目錄"
         />
 
         {/* Panel */}
@@ -195,6 +213,7 @@ export function Navigation({ items }: NavigationProps) {
               return (
                 <button
                   key={item.id}
+                  ref={index === 0 ? firstNavRef : undefined}
                   type="button"
                   onClick={() => handleNavigate(item.id)}
                   className={`group flex w-full items-start gap-4 border-l-2 px-5 py-3.5 text-left transition-all duration-300 ${

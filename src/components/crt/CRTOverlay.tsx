@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface CRTOverlayProps {
   open: boolean
@@ -10,6 +10,7 @@ interface CRTOverlayProps {
 export function CRTOverlay({ open, onClose, title, children }: CRTOverlayProps) {
   const [phase, setPhase] = useState<'closed' | 'booting' | 'ready' | 'shutting-down'>('closed')
   const [prevOpen, setPrevOpen] = useState(open)
+  const modalRef = useRef<HTMLDivElement>(null)
 
   // Derive immediate phase transitions during render (avoids setState in effect)
   if (open !== prevOpen) {
@@ -54,10 +55,47 @@ export function CRTOverlay({ open, onClose, title, children }: CRTOverlayProps) 
     }
   }, [open, onClose])
 
+  // Focus trap — keep Tab cycling within the modal
+  useEffect(() => {
+    if (phase !== 'ready') return
+
+    const previousFocus = document.activeElement as HTMLElement | null
+    const modal = modalRef.current
+    if (!modal) return
+
+    // Focus the close button on open
+    const closeBtn = modal.querySelector<HTMLElement>('button[aria-label="關閉"]')
+    closeBtn?.focus()
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      const focusable = modal.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    window.addEventListener('keydown', handleTab)
+    return () => {
+      window.removeEventListener('keydown', handleTab)
+      previousFocus?.focus()
+    }
+  }, [phase])
+
   if (phase === 'closed') return null
 
   return (
     <div
+      ref={modalRef}
       className="fixed inset-0 z-[200] flex items-center justify-center bg-void/90 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"

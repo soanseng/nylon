@@ -28,6 +28,7 @@ export function ContentWarning({ onEnter }: ContentWarningProps) {
             type="button"
             onClick={onEnter}
             className="cursor-pointer border border-surveillance-green/50 bg-transparent px-8 py-3 font-heading text-[0.9rem] tracking-[0.15em] text-surveillance-green transition-all duration-300 hover:border-surveillance-green hover:bg-surveillance-green/10"
+            aria-label="確認並進入：內容涉及政治迫害與自焚事件"
           >
             進入
           </button>

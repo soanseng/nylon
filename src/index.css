@@ -63,6 +63,20 @@
   --font-document:       "Courier New", "Noto Sans Mono CJK TC", monospace;
 }
 
+/* === Font Display Fallbacks === */
+/* Google Fonts already uses display=swap via link tag.
+   These ensure local font references also swap correctly. */
+@font-face {
+  font-family: "LXGW WenKai TC";
+  font-display: swap;
+  src: local("LXGW WenKai TC");
+}
+
+/* === Layout Containment for Performance === */
+.scroll-snap-container > * {
+  contain: layout style;
+}
+
 /* === Base Styles === */
 
 html {
