@@ -15,6 +15,15 @@ const HistoricalContext = lazy(() =>
 const TheSeventyOneDays = lazy(() =>
   import('./chapters/TheSeventyOneDays').then((m) => ({ default: m.TheSeventyOneDays })),
 )
+const Investigation = lazy(() =>
+  import('./chapters/Investigation').then((m) => ({ default: m.Investigation })),
+)
+const SurveillanceTruth = lazy(() =>
+  import('./chapters/SurveillanceTruth').then((m) => ({ default: m.SurveillanceTruth })),
+)
+const UnansweredQuestions = lazy(() =>
+  import('./chapters/UnansweredQuestions').then((m) => ({ default: m.UnansweredQuestions })),
+)
 const CallToAction = lazy(() =>
   import('./chapters/CallToAction').then((m) => ({ default: m.CallToAction })),
 )
@@ -24,6 +33,9 @@ const navItems = [
   { id: 'prologue', label: '序章', labelEn: 'Prologue', num: '00' },
   { id: 'historical-context', label: '時代背景', labelEn: 'When Words Were Treason', num: '01' },
   { id: 'the-71-days', label: '案發經過', labelEn: 'The 71 Days', num: '02' },
+  { id: 'investigation', label: '調查歷程', labelEn: 'Investigation', num: '03' },
+  { id: 'surveillance-truth', label: '監控真相', labelEn: 'Surveillance Truth', num: '04' },
+  { id: 'unanswered-questions', label: '未解之謎', labelEn: 'Unanswered Questions', num: '05' },
   { id: 'call-to-action', label: '行動呼籲', labelEn: 'Call to Action', num: '06' },
 ]
 
@@ -63,6 +75,18 @@ function App() {
         <ChapterTransition variant="ink" />
         <Suspense fallback={<ChapterFallback />}>
           <TheSeventyOneDays />
+        </Suspense>
+        <ChapterTransition variant="ink" />
+        <Suspense fallback={<ChapterFallback />}>
+          <Investigation />
+        </Suspense>
+        <ChapterTransition variant="ink" />
+        <Suspense fallback={<ChapterFallback />}>
+          <SurveillanceTruth />
+        </Suspense>
+        <ChapterTransition variant="fire" />
+        <Suspense fallback={<ChapterFallback />}>
+          <UnansweredQuestions />
         </Suspense>
         <ChapterTransition variant="fire" />
         <Suspense fallback={<ChapterFallback />}>
