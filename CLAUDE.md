@@ -154,11 +154,26 @@ Each data file defines its own TypeScript interfaces inline (no shared `types.ts
 - `public/404.html` SPA redirect for GitHub Pages
 - `public/robots.txt`
 
-### Not Yet Created
-- PixiJS procedural pixel art scenes (`src/components/pixel/`) — PNG placeholders acceptable for MVP
+### Completed: PixiJS Pixel Art Scenes (2026-02-20)
+
+All 5 static PNG placeholder scenes replaced with procedural PixiJS v8 animated scenes:
+
+**Infrastructure** (`src/components/pixel/`):
+- `PixelScene.tsx` — Shared wrapper (lazy loading, scroll progress, reduced-motion fallback)
+- `PixelSceneFrame.tsx` — Visual frame (surveillance-green border, 「場景重現」label, caption)
+- `useScrollProgress` hook — Continuous scroll progress (0–1) and viewport visibility tracking
+
+**Scenes** (`src/components/pixel/scenes/`):
+| Scene | Chapter | Key Elements | Animation |
+|-------|---------|-------------|-----------|
+| EditorsDeskScene | Ch.0 序章 | Desk, typewriter, manuscripts, gasoline can | Lamp sway, can glint |
+| CourtroomScene | Ch.1 時代背景 | Judge, defendant, guards, stamp | Paper flutter, stamp pulse |
+| StandoffScene | Ch.2 案發經過 | Split: warm interior / cold exterior | Interior flicker, police lights |
+| IntelligenceOfficeScene | Ch.4 監控真相 | Bird's-eye desk, cabinet, phone, ashtray | Pen writing, cigarette smoke |
+| CharredOfficeScene | Ch.5 未解之謎 | Charred ruins, light beam, no figure | Dust particles, ember glow |
 
 ### Implementation Plan
-See `docs/plans/2026-02-20-phase-3-plan.md` — Phase 3 complete. Site ready for deployment.
+See `docs/plans/2026-02-20-pixijs-scenes-plan.md` — PixiJS scenes complete. Full site deployed.
 
 ## Tech Stack
 
