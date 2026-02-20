@@ -1,17 +1,20 @@
 import { Section } from '../components/layout/Section'
 import { ScrollReveal } from '../components/narrative/ScrollReveal'
 import { ChapterHeader } from '../components/layout/ChapterHeader'
-import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { DayCounter } from '../components/timeline/DayCounter'
+import { StandoffScene } from '../components/pixel/scenes'
+import { PixelSceneFrame } from '../components/pixel/PixelSceneFrame'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 import { getEventsByDateRange } from '../data/timeline'
 import { selfImprisonmentMeta } from '../data/selfImprisonment'
-import standoff from '../assets/pixel-art/standoff.png'
 
 // Get key events for this chapter's date range
 const keyEvents = getEventsByDateRange('1988-12-10', '1989-04-07')
   .filter(e => e.significance === 'high')
 
 export function TheSeventyOneDays() {
+  const sceneScroll = useScrollProgress()
+
   return (
     <Section id="the-71-days" background="void">
       <div className="mx-auto max-w-[640px] space-y-16">
@@ -46,13 +49,11 @@ export function TheSeventyOneDays() {
         </ScrollReveal>
 
         {/* Pixel art: standoff */}
-        <ScrollReveal>
-          <PixelArtScene
-            src={standoff}
-            alt="對峙——左：辦公室內鄭南榕伏案；右：警方包圍建築"
-            caption="1989年1月27日至4月7日——71天的自囚與包圍"
-          />
-        </ScrollReveal>
+        <div ref={sceneScroll.ref}>
+          <PixelSceneFrame caption="1989年1月27日至4月7日——71天的自囚與包圍">
+            <StandoffScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+          </PixelSceneFrame>
+        </div>
 
         {/* Source attribution */}
         <ScrollReveal>
