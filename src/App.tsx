@@ -57,8 +57,15 @@ function App() {
 
   return (
     <>
+      {/* Skip to content link for screen readers */}
+      <a
+        href="#prologue"
+        className="fixed top-0 left-0 z-[9999] -translate-y-full bg-void px-4 py-2 font-document text-sm text-crt-green transition-transform focus:translate-y-0"
+      >
+        跳至主要內容
+      </a>
       <Navigation items={navItems} />
-      <main className="scroll-snap-container">
+      <main className="scroll-snap-container" aria-label="主要內容">
         <Suspense fallback={<ChapterFallback />}>
           <ContentWarning onEnter={handleEnter} />
         </Suspense>
