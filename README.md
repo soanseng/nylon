@@ -217,6 +217,42 @@ git push origin main
 
 ---
 
+## 為什麼要架這個網站
+
+這是一個以沉浸式互動體驗呈現鄭南榕事件的網站。我們不虛構、不推測、不煽動——網站中的每一句話，都來自政府公開的解密檔案與鄭南榕基金會的典藏資料。我們相信，對抗歷史遺忘最有力的方式，是讓更多人讀到原始史料。
+
+本站以「紙上死刑」為設計核心——恐怖不是烈火，而是官僚體制：公文裡的冷漠措辭、五千頁的監控紀錄、一條規定「發表這些文字→死刑」的法條、以及七十一天的自我囚禁。我們希望讓現代訪客「體感」那個年代的窒息——
+
+**解嚴之後，言論仍然是叛亂。唯一的刑罰仍然是死刑。**
+
+鄭南榕不是用死亡換取自由，而是用行動告訴我們：自由不是被給予的，而是必須被堅持的。這個網站的存在，是為了讓更多人記住這段歷史，理解今日我們習以為常的言論自由，是多少人用生命換來的。
+
+**閱讀就是記憶。記憶就是正義的開始。**
+
+---
+
+## 系列網站
+
+本站為「台灣威權時代重大案件」互動式歷史紀錄系列之一：
+
+| 案件 | 網址 |
+|------|------|
+| 林宅血案 | [soanseng.github.io/the-lin](https://soanseng.github.io/the-lin/) |
+| 陳文成事件 | [soanseng.github.io/Chen-Wen-chen](https://soanseng.github.io/Chen-Wen-chen/) |
+| **鄭南榕事件**（本站） | [soanseng.github.io/nylon](https://soanseng.github.io/nylon/) |
+| 江南案 | [soanseng.github.io/henry-liu-case](https://soanseng.github.io/henry-liu-case/) |
+
+---
+
+## 製作團隊
+
+**陳璿丞 醫師**
+
+- [anatomind.com](https://anatomind.com)
+- [Facebook](https://facebook.com/anatomind)
+
+---
+
 ## 授權
 
 本網站程式碼以 MIT 授權開放。
