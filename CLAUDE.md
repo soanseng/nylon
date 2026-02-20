@@ -125,12 +125,40 @@ Each data file defines its own TypeScript interfaces inline (no shared `types.ts
 
 **All 8 chapters now integrated in App.tsx** with lazy loading and correct ChapterTransition variants.
 
+### Completed: Phase 3 — Polish, Accessibility & Deploy (2026-02-20)
+
+**HTML & SEO:**
+- Proper `lang="zh-TW"`, title, description
+- Open Graph and Twitter Card meta tags
+- Google Fonts preconnect + stylesheet link with `display=swap`
+- Custom favicon.svg
+- `public/og-image.png` placeholder (1200x630)
+
+**Accessibility:**
+- Skip-to-content link (visually hidden, focus-visible)
+- Focus trap in CRT modal overlay (Tab cycles within modal, restores focus on close)
+- Keyboard-accessible navigation backdrop (role=button, Enter/Space to close)
+- Auto-focus on first menu item when nav menu opens
+- `aria-controls`/`aria-expanded` on BurntEdgeCard expandable panels
+- `aria-live="assertive"` on StampAnimation stamp result
+- Content Warning enter button with descriptive aria-label
+- `lang="zh-TW"` on Chinese blockquotes in Prologue
+
+**Performance:**
+- `font-display: swap` fallbacks in CSS
+- `contain: layout style` on scroll-snap chapter sections
+- Layout containment for heavy animation elements
+
+**Deploy:**
+- GitHub Actions workflow (`.github/workflows/deploy.yml`) — deploys to GitHub Pages on push to main
+- `public/404.html` SPA redirect for GitHub Pages
+- `public/robots.txt`
+
 ### Not Yet Created
-- PixiJS procedural scenes (`src/components/pixel/`)
-- Polish, accessibility audit, deploy
+- PixiJS procedural pixel art scenes (`src/components/pixel/`) — PNG placeholders acceptable for MVP
 
 ### Implementation Plan
-See `docs/plans/2026-02-20-phase-2-plan.md` — Phase 2 complete. Phase 3 (polish + deploy) next.
+See `docs/plans/2026-02-20-phase-3-plan.md` — Phase 3 complete. Site ready for deployment.
 
 ## Tech Stack
 
