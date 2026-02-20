@@ -4,7 +4,7 @@
 
 > 「國民黨只能抓到我的屍體，抓不到我的人。」——鄭南榕，1989
 
-🌐 **線上體驗：** [https://scip.io/nylon/](https://scip.io/nylon/)
+🌐 **線上體驗：** [https://soanseng.github.io/nylon/](https://soanseng.github.io/nylon/)
 
 ---
 
@@ -212,7 +212,7 @@ git push origin main
 ## 紀念與行動
 
 - **鄭南榕基金會** — [https://www.nylonfoundation.org.tw/](https://www.nylonfoundation.org.tw/)
-- **促進轉型正義委員會** — [https://www.tjc.gov.tw/](https://www.tjc.gov.tw/)
+- **促進轉型正義委員會（已於2022.05.30解散）** — [行政院促轉會典藏網站](https://www.ey.gov.tw/tjb/)
 - **4月7日言論自由日**（2016年正式設立）
 
 ---
