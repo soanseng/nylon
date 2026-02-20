@@ -1,6 +1,7 @@
 import { Section } from '../components/layout/Section'
 import { ScrollReveal } from '../components/narrative/ScrollReveal'
 import { ChapterHeader } from '../components/layout/ChapterHeader'
+import { Guestbook } from '../components/interactive/Guestbook'
 
 const actionCards = [
   {
@@ -340,6 +341,12 @@ export function CallToAction() {
                 </ul>
               </div>
             </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <div className="border-t border-smoke/20 pt-16">
+            <Guestbook />
           </div>
         </ScrollReveal>
 
