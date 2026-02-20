@@ -7,7 +7,7 @@ import { useScrollProgress } from '../hooks/useScrollProgress'
 
 export function Prologue() {
   const [dateVisible, setDateVisible] = useState(false)
-  const sceneScroll = useScrollProgress()
+  const { ref: sceneRef, progress: sceneProgress, isInView: sceneInView } = useScrollProgress()
 
   useEffect(() => {
     const timer = setTimeout(() => setDateVisible(true), 800)
@@ -18,9 +18,9 @@ export function Prologue() {
     <Section id="prologue" background="void" vignette>
       <div className="mx-auto flex max-w-[640px] flex-col items-center gap-12 text-center">
         {/* Pixel art scene */}
-        <div ref={sceneScroll.ref}>
+        <div ref={sceneRef}>
           <PixelSceneFrame caption="《自由時代》雜誌社總編輯室">
-            <EditorsDeskScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+            <EditorsDeskScene progress={sceneProgress} isInView={sceneInView} />
           </PixelSceneFrame>
         </div>
 

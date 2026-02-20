@@ -50,7 +50,7 @@ const mysteries = [
 ]
 
 export function UnansweredQuestions() {
-  const sceneScroll = useScrollProgress()
+  const { ref: sceneRef, progress: sceneProgress, isInView: sceneInView } = useScrollProgress()
 
   return (
     <Section id="unanswered-questions" background="ash">
@@ -64,9 +64,9 @@ export function UnansweredQuestions() {
         </ScrollReveal>
 
         {/* Pixel art: charred office */}
-        <div ref={sceneScroll.ref}>
+        <div ref={sceneRef}>
           <PixelSceneFrame caption="《自由時代》雜誌社內部：基金會保存了現場原貌至今">
-            <CharredOfficeScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+            <CharredOfficeScene progress={sceneProgress} isInView={sceneInView} />
           </PixelSceneFrame>
         </div>
 

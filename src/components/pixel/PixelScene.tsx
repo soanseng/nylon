@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useEffect, useLayoutEffect, useState, useCallback } from 'react'
 import { Application, Container } from 'pixi.js'
 
 /** Standard pixel art base resolution */
@@ -29,21 +29,24 @@ export function PixelScene({
   const appRef = useRef<Application | null>(null)
   const sceneRef = useRef<Container | null>(null)
   const cleanupRef = useRef<(() => void) | null>(null)
-  const [reducedMotion, setReducedMotion] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
   const initializedRef = useRef(false)
 
   useEffect(() => {
     const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setReducedMotion(mql.matches)
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
     mql.addEventListener('change', handler)
     return () => mql.removeEventListener('change', handler)
   }, [])
 
   const onSetupRef = useRef(onSetup)
-  onSetupRef.current = onSetup
   const onProgressRef = useRef(onProgress)
-  onProgressRef.current = onProgress
+  useLayoutEffect(() => {
+    onSetupRef.current = onSetup
+    onProgressRef.current = onProgress
+  })
 
   const cancelledRef = useRef(false)
 

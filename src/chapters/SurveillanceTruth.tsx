@@ -17,7 +17,7 @@ import {
 
 export function SurveillanceTruth() {
   const [reportOpen, setReportOpen] = useState(false)
-  const sceneScroll = useScrollProgress()
+  const { ref: sceneRef, progress: sceneProgress, isInView: sceneInView } = useScrollProgress()
   const [pagesViewed, setPagesViewed] = useState(0)
   const [counterVisible, setCounterVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -86,9 +86,9 @@ export function SurveillanceTruth() {
             </ScrollReveal>
 
             {/* Pixel art: intelligence office */}
-            <div ref={sceneScroll.ref}>
+            <div ref={sceneRef}>
               <PixelSceneFrame caption="青谷專案下的情報辦公室：每一份報告的另一端，都是一個人的日常">
-                <IntelligenceOfficeScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+                <IntelligenceOfficeScene progress={sceneProgress} isInView={sceneInView} />
               </PixelSceneFrame>
             </div>
 

@@ -12,7 +12,7 @@ import { punishmentOfRebellionAct, article21Quotes } from '../data/legal'
 
 export function HistoricalContext() {
   const [judgmentOpen, setJudgmentOpen] = useState(false)
-  const sceneScroll = useScrollProgress()
+  const { ref: sceneRef, progress: sceneProgress, isInView: sceneInView } = useScrollProgress()
 
   return (
     <Section id="historical-context" background="ink">
@@ -49,9 +49,9 @@ export function HistoricalContext() {
         </ScrollReveal>
 
         {/* Pixel art: courtroom */}
-        <div ref={sceneScroll.ref}>
+        <div ref={sceneRef}>
           <PixelSceneFrame caption="懲治叛亂條例下的軍事法庭：法官沒有從輕量刑的選擇">
-            <CourtroomScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+            <CourtroomScene progress={sceneProgress} isInView={sceneInView} />
           </PixelSceneFrame>
         </div>
 

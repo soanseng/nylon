@@ -13,7 +13,7 @@ const keyEvents = getEventsByDateRange('1988-12-10', '1989-04-07')
   .filter(e => e.significance === 'high')
 
 export function TheSeventyOneDays() {
-  const sceneScroll = useScrollProgress()
+  const { ref: sceneRef, progress: sceneProgress, isInView: sceneInView } = useScrollProgress()
 
   return (
     <Section id="the-71-days" background="void">
@@ -49,9 +49,9 @@ export function TheSeventyOneDays() {
         </ScrollReveal>
 
         {/* Pixel art: standoff */}
-        <div ref={sceneScroll.ref}>
+        <div ref={sceneRef}>
           <PixelSceneFrame caption="1989年1月27日至4月7日——71天的自囚與包圍">
-            <StandoffScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+            <StandoffScene progress={sceneProgress} isInView={sceneInView} />
           </PixelSceneFrame>
         </div>
 
