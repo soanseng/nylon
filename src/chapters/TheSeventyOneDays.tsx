@@ -7,6 +7,7 @@ import { PixelSceneFrame } from '../components/pixel/PixelSceneFrame'
 import { useScrollProgress } from '../hooks/useScrollProgress'
 import { getEventsByDateRange } from '../data/timeline'
 import { selfImprisonmentMeta } from '../data/selfImprisonment'
+import { AprilSeventhTimeline } from '../components/timeline/AprilSeventhTimeline'
 
 // Get key events for this chapter's date range
 const keyEvents = getEventsByDateRange('1988-12-10', '1989-04-07')
@@ -54,6 +55,9 @@ export function TheSeventyOneDays() {
             <StandoffScene progress={sceneProgress} isInView={sceneInView} />
           </PixelSceneFrame>
         </div>
+
+        {/* April 7 expanded timeline */}
+        <AprilSeventhTimeline />
 
         {/* Source attribution */}
         <ScrollReveal>
