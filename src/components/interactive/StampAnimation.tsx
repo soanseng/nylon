@@ -29,6 +29,7 @@ export function StampAnimation({ text, color = 'red', onStamp, className = '' }:
       aria-label={stamped ? text : `點擊蓋章：${text}`}
     >
       <span
+        aria-live="assertive"
         className={`inline-block rounded-sm border-2 px-4 py-2 font-heading text-[clamp(1.2rem,4vw,2rem)] font-black tracking-[0.15em] transition-all duration-200 ${colorClasses} ${
           stamped
             ? 'rotate-[-6deg] scale-100 opacity-90'

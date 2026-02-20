@@ -35,7 +35,7 @@ export function Prologue() {
 
         {/* Key quote */}
         <ScrollReveal delay={500}>
-          <blockquote className="font-literary text-[clamp(1.1rem,3.5vw,1.6rem)] leading-[2.2] tracking-[0.06em] text-paper-aged">
+          <blockquote lang="zh-TW" className="font-literary text-[clamp(1.1rem,3.5vw,1.6rem)] leading-[2.2] tracking-[0.06em] text-paper-aged">
             「國民黨只能抓到我的屍體，抓不到我的人。」
           </blockquote>
           <div className="mt-4 font-document text-[0.7rem] tracking-[0.15em] text-stone">

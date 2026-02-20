@@ -9,6 +9,7 @@ interface BurntEdgeCardProps {
 
 export function BurntEdgeCard({ title, subtitle, children }: BurntEdgeCardProps) {
   const [expanded, setExpanded] = useState(false)
+  const contentId = `burnt-card-${title.replace(/\s+/g, '-')}`
 
   return (
     <div
@@ -38,6 +39,7 @@ export function BurntEdgeCard({ title, subtitle, children }: BurntEdgeCardProps)
         onClick={() => setExpanded((prev) => !prev)}
         className="w-full cursor-pointer bg-ash/80 px-5 py-4 text-left transition-colors hover:bg-smoke/60"
         aria-expanded={expanded}
+        aria-controls={contentId}
       >
         <div className="flex items-center justify-between">
           <h4 className="font-heading text-[clamp(0.95rem,2.5vw,1.15rem)] font-bold text-paper-aged">
@@ -58,6 +60,8 @@ export function BurntEdgeCard({ title, subtitle, children }: BurntEdgeCardProps)
       </button>
 
       <div
+        id={contentId}
+        role="region"
         className="overflow-hidden transition-all duration-500"
         style={{
           maxHeight: expanded ? '2000px' : '0px',
