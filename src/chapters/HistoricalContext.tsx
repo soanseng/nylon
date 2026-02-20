@@ -3,14 +3,16 @@ import { Section } from '../components/layout/Section'
 import { ScrollReveal } from '../components/narrative/ScrollReveal'
 import { ChapterHeader } from '../components/layout/ChapterHeader'
 import { DocumentPage } from '../components/narrative/DocumentPage'
-import { PixelArtScene } from '../components/pixel-art/PixelArtScene'
 import { StampAnimation } from '../components/interactive/StampAnimation'
 import { StatuteJudgment } from '../components/crt/StatuteJudgment'
+import { CourtroomScene } from '../components/pixel/scenes'
+import { PixelSceneFrame } from '../components/pixel/PixelSceneFrame'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 import { punishmentOfRebellionAct, article21Quotes } from '../data/legal'
-import courtroom from '../assets/pixel-art/courtroom.png'
 
 export function HistoricalContext() {
   const [judgmentOpen, setJudgmentOpen] = useState(false)
+  const sceneScroll = useScrollProgress()
 
   return (
     <Section id="historical-context" background="ink">
@@ -47,13 +49,11 @@ export function HistoricalContext() {
         </ScrollReveal>
 
         {/* Pixel art: courtroom */}
-        <ScrollReveal>
-          <PixelArtScene
-            src={courtroom}
-            alt="法庭場景——法官高坐，被告站立，桌上「唯一死刑」印章"
-            caption="懲治叛亂條例下的軍事法庭：法官沒有從輕量刑的選擇"
-          />
-        </ScrollReveal>
+        <div ref={sceneScroll.ref}>
+          <PixelSceneFrame caption="懲治叛亂條例下的軍事法庭：法官沒有從輕量刑的選擇">
+            <CourtroomScene progress={sceneScroll.progress} isInView={sceneScroll.isInView} />
+          </PixelSceneFrame>
+        </div>
 
         {/* 1b: 二條一 statute display */}
         <ScrollReveal>
