@@ -72,11 +72,6 @@
   src: local("LXGW WenKai TC");
 }
 
-/* === Layout Containment for Performance === */
-.scroll-snap-container > * {
-  contain: layout style;
-}
-
 /* === Base Styles === */
 
 html {
